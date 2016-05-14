@@ -21,13 +21,6 @@ $RECYCLE.BIN/
 # Operating System Files
 # =========================
 
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
 # Thumbnails
 ._*
 
@@ -45,3 +38,18 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# =========================
+# Unused code
+# =========================
+App Design/
+Arduino/
+Arduino Quadcopter/
+Quadcopter App
+Wiring/
+Camera pitch angles.ggb
+Connections.txt
+Protocoll Computer to Arduino.txt
+Quadrocopter.txt
+Raspberry Pi/com.jw.quadcopter.raspberrypi/.settings/org.eclipse.jdt.core.prefs
+xBee Transmission protocoll.txt
