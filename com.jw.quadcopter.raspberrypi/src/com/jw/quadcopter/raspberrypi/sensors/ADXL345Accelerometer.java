@@ -1,11 +1,6 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import com.jw.quadcopter.raspberrypi.communication.ArduinoCommunicationManager;
-import com.jw.quadcopter.raspberrypi.main.Quadcopter;
+import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
 
 public final class ADXL345Accelerometer extends Accelerometer
 {
@@ -82,39 +77,32 @@ public final class ADXL345Accelerometer extends Accelerometer
 	}
 
 	@Override
-	public void init(OutputStream outputStream, Range range)
+	public void init(CommunicationManager communicationManager, Range range)
 	{
-		try
-		{
-			outputStream.write(ArduinoCommunicationManager.CTRL_SENSOR_INIT_ACCELEROMETER);
-			outputStream.write(3);
+		super.init(communicationManager, range);
 
-			// BW_RATE
-			outputStream.write(BW_RATE_REGISTER);
-			outputStream.write(BW_RATE_200);
+		communicationManager.send(CommunicationManager.CTRL_SENSOR_INIT_ACCELEROMETER);
+		communicationManager.send((byte) 3);
 
-			// POWER_CTL
-			outputStream.write(POWER_CTL_REGISTER);
-			outputStream.write(POWER_CTL_LINK | POWER_CTL_MEASURE | POWER_CTL_WAKEUP_8HZ);
+		// BW_RATE
+		communicationManager.send(BW_RATE_REGISTER);
+		communicationManager.send(BW_RATE_200);
 
-			// FIFO_CTL
-			outputStream.write(FIFO_CTL_REGISTER);
-			outputStream.write(FIFO_CTL_FIFO_MODE_STREAM);
+		// POWER_CTL
+		communicationManager.send(POWER_CTL_REGISTER);
+		communicationManager.send((byte) (POWER_CTL_LINK | POWER_CTL_MEASURE | POWER_CTL_WAKEUP_8HZ));
 
-			// DATA_FORMAT
-			outputStream.write(FIFO_CTL_REGISTER);
-			outputStream.write(FIFO_CTL_FIFO_MODE_STREAM);
-		}
-		catch (IOException e)
-		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(),
-					"Exception while trying to initialize accelerometer", e);
-		}
+		// FIFO_CTL
+		communicationManager.send(FIFO_CTL_REGISTER);
+		communicationManager.send(FIFO_CTL_FIFO_MODE_STREAM);
+
+		// DATA_FORMAT
+		communicationManager.send(FIFO_CTL_REGISTER);
+		communicationManager.send(FIFO_CTL_FIFO_MODE_STREAM);
 	}
 
-
 	@Override
-	public void updateValues(InputStream inputStream)
+	public void updateValues()
 	{
 	}
 }

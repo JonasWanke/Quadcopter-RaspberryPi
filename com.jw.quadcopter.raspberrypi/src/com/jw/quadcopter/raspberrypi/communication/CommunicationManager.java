@@ -6,6 +6,11 @@ import java.util.Queue;
 
 public abstract class CommunicationManager
 {
+	public static final byte CTRL_SENSOR_INIT_ACCELEROMETER = 0b00001000;
+	public static final byte CTRL_SENSOR_INIT_GYROSCOPE = 0b00001001;
+	public static final byte CTRL_SENSOR_INIT_MAGNETOMETER = 0b00001010;
+	public static final byte CTRL_SENSOR_INIT_BAROMETER = 0b00001011;
+	
 	protected InputStream inputStream;
 	protected OutputStream outputStream;
 

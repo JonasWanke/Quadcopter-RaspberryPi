@@ -1,11 +1,6 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import com.jw.quadcopter.raspberrypi.communication.ArduinoCommunicationManager;
-import com.jw.quadcopter.raspberrypi.main.Quadcopter;
+import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
 
 public final class L3G4200DGyroscope extends Gyroscope
 {
@@ -125,42 +120,35 @@ public final class L3G4200DGyroscope extends Gyroscope
 
 	public L3G4200DGyroscope()
 	{
-
 	}
 
 	@Override
-	public void init(OutputStream outputStream, Range range)
+	public void init(CommunicationManager communicationManager, Range range)
 	{
-		try
-		{
-			outputStream.write(ArduinoCommunicationManager.CTRL_SENSOR_INIT_GYROSCOPE);
-			outputStream.write(4);
+		super.init(communicationManager, range);
 
-			// CTRL_REG1
-			outputStream.write(CTRL_REG1_REGISTER);
-			outputStream.write(CTRL_REG1_PD | CTRL_REG1_X_EN | CTRL_REG1_Y_EN | CTRL_REG1_Z_EN);
+		communicationManager.send(CommunicationManager.CTRL_SENSOR_INIT_GYROSCOPE);
+		communicationManager.send((byte) 4);
 
-			// CTRL_REG2
-			outputStream.write(CTRL_REG2_REGISTER);
-			outputStream.write(0);
+		// CTRL_REG1
+		communicationManager.send(CTRL_REG1_REGISTER);
+		communicationManager.send((byte) (CTRL_REG1_PD | CTRL_REG1_X_EN | CTRL_REG1_Y_EN | CTRL_REG1_Z_EN));
 
-			// CTRL_REG4
-			outputStream.write(CTRL_REG4_REGISTER);
-			outputStream.write(range.getRangeBits());
+		// CTRL_REG2
+		communicationManager.send(CTRL_REG2_REGISTER);
+		communicationManager.send((byte) 0);
 
-			// CTRL_REG5
-			outputStream.write(CTRL_REG5_REGISTER);
-			outputStream.write(0);
-		}
-		catch (IOException e)
-		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(),
-					"Exception while trying to initialize accelerometer", e);
-		}
+		// CTRL_REG4
+		communicationManager.send(CTRL_REG4_REGISTER);
+		communicationManager.send(range.getRangeBits());
+
+		// CTRL_REG5
+		communicationManager.send(CTRL_REG5_REGISTER);
+		communicationManager.send((byte) 0);
 	}
 
 	@Override
-	public void updateValues(InputStream inputStream)
+	public void updateValues()
 	{
 
 	}

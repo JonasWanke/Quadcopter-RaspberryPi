@@ -1,7 +1,7 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.jw.quadcopter.raspberrypi.communication.ArduinoCommunicationManager;
+import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
 
 public class SensorManager
 {
@@ -10,6 +10,8 @@ public class SensorManager
 	private Magnetometer magnetometer;
 	private Barometer barometer;
 	private Thermometer thermometer;
+
+	private CommunicationManager communicationManager;
 
 	public SensorManager(Accelerometer accelerometer, Gyroscope gyroscope, Magnetometer magnetometer,
 			Barometer barometer, Thermometer thermometer)
@@ -21,15 +23,19 @@ public class SensorManager
 		this.thermometer = thermometer;
 	}
 
-	public void initSensors(OutputStream outputStream, Accelerometer.Range accelerometerRange)
+	public void initSensors(CommunicationManager communicationManager, Accelerometer.Range accelerometerRange,
+			Gyroscope.Range gyroscopeRange)
 	{
-		accelerometer.init(outputStream, accelerometerRange);
+		this.communicationManager = communicationManager;
+
+		accelerometer.init(communicationManager, accelerometerRange);
+		gyroscope.init(communicationManager, gyroscopeRange);
 	}
-	
-	public void updateValues(InputStream inputStream)
+
+	public void updateValues()
 	{
-		accelerometer.updateValues(inputStream);
-		gyroscope.updateValues(inputStream);
+		accelerometer.updateValues();
+		gyroscope.updateValues();
 		magnetometer.updateValues();
 		barometer.updateValues();
 		thermometer.updateValues();

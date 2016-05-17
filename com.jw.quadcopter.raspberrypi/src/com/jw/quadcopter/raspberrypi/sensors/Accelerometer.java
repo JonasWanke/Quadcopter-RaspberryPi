@@ -1,22 +1,25 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
 
 public abstract class Accelerometer
 {
-	public double x;
-	public double y;
-	public double z;
-	
-	private Range range;
+	protected double x;
+	protected double y;
+	protected double z;
+
+	protected CommunicationManager communicationManager;
+	protected Range range;
 
 	public Accelerometer()
 	{
 	}
-	
-	public abstract void init(OutputStream outputStream, Range range);
-	public abstract void updateValues(InputStream inputStream);
+
+	public void init(CommunicationManager communicationManager, Range range)
+	{
+		this.communicationManager = communicationManager;
+	}
+	public abstract void updateValues();
 
 	public double getX()
 	{
@@ -35,7 +38,7 @@ public abstract class Accelerometer
 	{
 		return range;
 	}
-	
+
 	public enum Range
 	{
 		RANGE_2G(2), RANGE_4G(4), RANGE_8G(8), RANGE_16G(16);
@@ -51,7 +54,7 @@ public abstract class Accelerometer
 		{
 			return range;
 		}
-		
+
 		public double getGPerLSB()
 		{
 			switch (range)

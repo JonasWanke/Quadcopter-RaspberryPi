@@ -20,11 +20,6 @@ public class ArduinoCommunicationManager extends CommunicationManager
 	public static final int PARITY = SerialPort.PARITY_NONE;
 	public static final int PORT_OPEN_TIMEOUT = 2000;
 
-	public static final byte CTRL_SENSOR_INIT_ACCELEROMETER = 0b00001000;
-	public static final byte CTRL_SENSOR_INIT_GYROSCOPE = 0b00001001;
-	public static final byte CTRL_SENSOR_INIT_MAGNETOMETER = 0b00001010;
-	public static final byte CTRL_SENSOR_INIT_BAROMETER = 0b00001011;
-
 	private SerialPort serialPort;
 	private ArduinoInputListener arduinoInputListener;
 	private ArduinoOutputManager arduinoOutputManager;

@@ -14,7 +14,7 @@ public class Quadcopter
 
 	private SensorManager sensorManager;
 	private ArduinoCommunicationManager arduinoCommunicationManager;
-	
+
 	private Quadcopter(Accelerometer accelerometer, Gyroscope gyroscope, Magnetometer magnetometer, Barometer barometer,
 			Thermometer thermometer)
 	{
@@ -37,9 +37,10 @@ public class Quadcopter
 	public void init()
 	{
 		arduinoCommunicationManager.init();
-		sensorManager.initSensors(arduinoCommunicationManager.getOutputStream(), Accelerometer.Range.RANGE_4G);
+		sensorManager.initSensors(arduinoCommunicationManager, Accelerometer.Range.RANGE_4G,
+				Gyroscope.Range.RANGE_250DPS);
 	}
-	
+
 	public void RegisterSeriousError(String className, String exception)
 	{
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

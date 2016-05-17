@@ -1,22 +1,25 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
 
 public abstract class Gyroscope
 {
-	private double x;
-	private double y;
-	private double z;
-	
-	private Range range;
+	protected double x;
+	protected double y;
+	protected double z;
+
+	protected CommunicationManager communicationManager;
+	protected Range range;
 
 	public Gyroscope()
 	{
 	}
-	
-	public abstract void init(OutputStream outputStream, Range range);
-	public abstract void updateValues(InputStream inputStream);
+
+	public void init(CommunicationManager communicationManager, Range range)
+	{
+		this.communicationManager = communicationManager;
+	}
+	public abstract void updateValues();
 
 	public double getX()
 	{
@@ -35,7 +38,7 @@ public abstract class Gyroscope
 	{
 		return range;
 	}
-	
+
 	public enum Range
 	{
 		RANGE_250DPS(250), RANGE_500DPS(500), RANGE_2000DPS(2000);
@@ -51,7 +54,7 @@ public abstract class Gyroscope
 		{
 			return range;
 		}
-		
+
 		public double getDPSPerLSB()
 		{
 			switch (range)
