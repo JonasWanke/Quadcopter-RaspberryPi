@@ -1,6 +1,7 @@
 package com.jw.quadcopter.raspberrypi.communication;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import com.jw.quadcopter.raspberrypi.main.Quadcopter;
 import com.jw.quadcopter.raspberrypi.util.OperatingSystem;
@@ -23,9 +24,10 @@ public class ArduinoCommunicationManager extends CommunicationManager
 	public static final byte CTRL_SENSOR_INIT_GYROSCOPE = 0b00001001;
 	public static final byte CTRL_SENSOR_INIT_MAGNETOMETER = 0b00001010;
 	public static final byte CTRL_SENSOR_INIT_BAROMETER = 0b00001011;
-	
+
 	private SerialPort serialPort;
 	private ArduinoInputListener arduinoInputListener;
+	private ArduinoOutputManager arduinoOutputManager;
 
 	public ArduinoCommunicationManager()
 	{
@@ -67,10 +69,14 @@ public class ArduinoCommunicationManager extends CommunicationManager
 			serialPort = (SerialPort) commPortIdentifier.open(this.getClass().getName(), PORT_OPEN_TIMEOUT);
 			serialPort.setSerialPortParams(BAUD_RATE, DATABITS, STOPBITS, PARITY);
 
+			inputBuffer = new LinkedList<Byte>();
 			inputStream = serialPort.getInputStream();
 			arduinoInputListener = new ArduinoInputListener(inputStream, this);
 			arduinoInputListener.run();
+
 			outputStream = serialPort.getOutputStream();
+			arduinoOutputManager = new ArduinoOutputManager(outputStream, this);
+			arduinoOutputManager.run();
 		}
 		catch (NoSuchPortException e)
 		{
@@ -92,18 +98,12 @@ public class ArduinoCommunicationManager extends CommunicationManager
 	@Override
 	public void close()
 	{
-		try
-		{
-			arduinoInputListener.join();
-		}
-		catch (InterruptedException e)
-		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
-		}
+		arduinoInputListener.end();
+		arduinoOutputManager.end();
 	}
 
 	@Override
-	public void send(int b)
+	public void send(byte b)
 	{
 		sendForResult(b, 0);
 	}
@@ -114,13 +114,30 @@ public class ArduinoCommunicationManager extends CommunicationManager
 	}
 
 	@Override
-	public byte[] sendForResult(int b, int answerLength)
+	public byte[] sendForResult(byte b, int resultLength)
 	{
-		return null;
+		return sendForResult(new byte[] { b }, resultLength);
 	}
 	@Override
-	public byte[] sendForResult(byte[] b, int answerLength)
+	public byte[] sendForResult(byte[] b, int resultLength)
 	{
-		return null;
+		int id = arduinoOutputManager.send(b, resultLength);
+		if (resultLength == 0)
+			return null;
+		while (inputBufferIDs.peek() != id)
+			try
+			{
+				// Sleep 10µs to decrease CPU usage
+				Thread.sleep(0, 10000);
+			}
+			catch (InterruptedException e)
+			{
+				Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+			}
+		byte[] result = new byte[resultLength];
+		for (int i = 0; i < resultLength; i++)
+			result[i] = inputBuffer.remove();
+		inputBufferIDs.remove();
+		return result;
 	}
 }
