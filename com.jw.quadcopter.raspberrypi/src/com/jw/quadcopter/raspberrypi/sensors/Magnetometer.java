@@ -1,12 +1,11 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
 import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
+import com.jw.quadcopter.raspberrypi.util.Rotation3d;
 
 public abstract class Magnetometer
 {
-	protected double x;
-	protected double y;
-	protected double z;
+	protected Rotation3d rotation;
 
 	protected CommunicationManager communicationManager;
 
@@ -20,16 +19,8 @@ public abstract class Magnetometer
 	}
 	public abstract void updateValues();
 
-	public double getX()
+	public Rotation3d getRotation()
 	{
-		return x;
-	}
-	public double getY()
-	{
-		return y;
-	}
-	public double getZ()
-	{
-		return z;
+		return rotation;
 	}
 }

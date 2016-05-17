@@ -1,7 +1,7 @@
 package com.jw.quadcopter.raspberrypi.sensors;
 
-import com.jw.quadcopter.raspberrypi.communication.ArduinoCommunicationManager;
 import com.jw.quadcopter.raspberrypi.communication.CommunicationManager;
+import com.jw.quadcopter.raspberrypi.util.Rotation3d;
 
 public class SensorManager
 {
@@ -10,6 +10,8 @@ public class SensorManager
 	private Magnetometer magnetometer;
 	private Barometer barometer;
 	private Thermometer thermometer;
+
+	protected Rotation3d rotation;
 
 	private CommunicationManager communicationManager;
 
@@ -60,6 +62,11 @@ public class SensorManager
 	public Thermometer getThermometer()
 	{
 		return thermometer;
+	}
+
+	public Rotation3d getRotation()
+	{
+		return rotation;
 	}
 }
 /*
