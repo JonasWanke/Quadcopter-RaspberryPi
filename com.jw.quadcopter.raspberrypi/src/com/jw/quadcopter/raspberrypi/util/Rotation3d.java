@@ -44,14 +44,29 @@ public class Rotation3d
 		yaw = 0;
 	}
 	/**
+	 * Creates a new instance of {@code Rotation3d} with the given angles and a
+	 * {@link #yaw} of {@code 0}.
+	 * 
+	 * @param pitch
+	 *            {@link #pitch Pitch} in radians
+	 * @param roll
+	 *            {@link #roll Roll} in radians
+	 */
+	public Rotation3d(double pitch, double roll)
+	{
+		this.pitch = pitch;
+		this.roll = roll;
+		this.yaw = 0;
+	}
+	/**
 	 * Creates a new instance of {@code Rotation3d} with the given angles.
 	 * 
 	 * @param pitch
-	 *            Pitch in radians
+	 *            {@link #pitch Pitch} in radians
 	 * @param roll
-	 *            Roll in radians
+	 *            {@link #roll Roll} in radians
 	 * @param yaw
-	 *            Yaw in radians
+	 *            {@link #yaw Yaw} in radians
 	 */
 	public Rotation3d(double pitch, double roll, double yaw)
 	{
