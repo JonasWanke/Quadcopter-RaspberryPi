@@ -46,7 +46,7 @@ public abstract class Accelerometer
 			return range;
 		}
 
-		public double getGPerLSB()
+		public double getGPerDigit()
 		{
 			switch (range)
 			{

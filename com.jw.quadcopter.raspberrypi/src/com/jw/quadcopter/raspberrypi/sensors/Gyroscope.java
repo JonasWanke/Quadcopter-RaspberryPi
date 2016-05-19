@@ -5,6 +5,10 @@ import com.jw.quadcopter.raspberrypi.util.Rotation3d;
 
 public abstract class Gyroscope
 {
+	/**
+	 * {@code rotation} contains the measured angular change per second in
+	 * radians.
+	 */
 	protected Rotation3d rotation;
 
 	protected CommunicationManager communicationManager;
@@ -46,7 +50,7 @@ public abstract class Gyroscope
 			return range;
 		}
 
-		public double getDPSPerLSB()
+		public double getDPSPerDigit()
 		{
 			switch (range)
 			{

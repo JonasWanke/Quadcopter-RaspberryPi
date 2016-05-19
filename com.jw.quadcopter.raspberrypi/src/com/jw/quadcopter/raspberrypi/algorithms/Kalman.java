@@ -69,16 +69,11 @@ public class Kalman
 
 		return angle;
 	}
+
 	public double getRate()
 	{
 		return rate;
 	}
-
-	public void setAngle(double angle)
-	{
-		this.angle = angle;
-	}
-
 	public double getQangle()
 	{
 		return Q_angle;
@@ -92,6 +87,10 @@ public class Kalman
 		return R_measure;
 	}
 
+	public void setAngle(double angle)
+	{
+		this.angle = angle;
+	}
 	public void setQangle(double q_angle)
 	{
 		Q_angle = q_angle;
