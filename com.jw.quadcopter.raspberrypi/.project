@@ -20,11 +20,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>bin/com.jw.quadcopter.raspberrypi</name>
-			<type>2</type>
-			<location>J:/Documents/Coding/com.jw.quadcopter.raspberrypi</location>
-		</link>
-	</linkedResources>
 </projectDescription>
