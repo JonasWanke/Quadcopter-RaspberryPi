@@ -1,6 +1,8 @@
 # Quadcopter-RaspberryPi
 
-**This readme will be updated soon!**
+**Important:**
+I decided to change the hardware on the quadcopter itself so it uses a single Arduino and no Raspberry Pi. Therefore this repository, including part of this readme (*The Quadcopter itself* under Project structure) will be deprecated.  
+New repository: [Arduino]
 
 ## Goals
 My goal is to build and program a quadcopter from scratch. It will feature:
@@ -12,7 +14,7 @@ My goal is to build and program a quadcopter from scratch. It will feature:
 ## Project structure
 I am currently working on a DIY quadcopter, which means building and programming it myself as far as possible. The hardware consists of three seperated systems:
 
-### 1. The Quadcopter itself:
+### 1. The Quadcopter itself: *(Deprecated)*
 
 The quadcopter consists of two main controllers, that are connected with a serial link over USB:
   
