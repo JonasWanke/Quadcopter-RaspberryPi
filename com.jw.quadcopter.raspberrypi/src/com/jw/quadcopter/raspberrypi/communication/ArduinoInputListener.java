@@ -38,7 +38,7 @@ public final class ArduinoInputListener extends Thread
 			}
 			catch (IOException e)
 			{
-				Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+				Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 			}
 	}
 }

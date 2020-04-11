@@ -56,7 +56,7 @@ public class ArduinoCommunicationManager extends CommunicationManager
 					identifier = "/dev/ttyACM0";
 					break;
 				default:
-					Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(),
+					Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(),
 							"Unknown operating system");
 					break;
 			}
@@ -75,19 +75,19 @@ public class ArduinoCommunicationManager extends CommunicationManager
 		}
 		catch (NoSuchPortException e)
 		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+			Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 		}
 		catch (PortInUseException e)
 		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+			Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 		}
 		catch (UnsupportedCommOperationException e)
 		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+			Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 		}
 		catch (IOException e)
 		{
-			Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+			Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 		}
 	}
 	@Override
@@ -127,7 +127,7 @@ public class ArduinoCommunicationManager extends CommunicationManager
 			}
 			catch (InterruptedException e)
 			{
-				Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+				Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 			}
 		byte[] result = new byte[resultLength];
 		for (int i = 0; i < resultLength; i++)

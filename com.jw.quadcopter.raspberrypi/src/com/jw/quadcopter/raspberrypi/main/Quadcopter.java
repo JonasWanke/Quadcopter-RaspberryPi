@@ -94,6 +94,7 @@ public class Quadcopter
 				Accelerometer.Range.RANGE_4G, Gyroscope.Range.RANGE_250DPS);
 	}
 
+	@Deprecated
 	public void registerSeriousError(String className, String exception)
 	{
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -102,6 +103,7 @@ public class Quadcopter
 		System.out.println(exception);
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	}
+	@Deprecated
 	public void registerSeriousError(String className, Exception exception)
 	{
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -110,6 +112,7 @@ public class Quadcopter
 		System.out.println(exception);
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	}
+	@Deprecated
 	public void registerSeriousError(String className, String message,
 			Exception exception)
 	{

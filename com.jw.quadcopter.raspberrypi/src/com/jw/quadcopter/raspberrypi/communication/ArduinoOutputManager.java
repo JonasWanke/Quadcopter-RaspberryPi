@@ -40,7 +40,7 @@ public class ArduinoOutputManager extends Thread
 				}
 				catch (IOException e)
 				{
-					Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+					Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 				}
 			else
 				try
@@ -50,7 +50,7 @@ public class ArduinoOutputManager extends Thread
 				}
 				catch (InterruptedException e)
 				{
-					Quadcopter.getQuadcopter().RegisterSeriousError(this.getClass().getName(), e);
+					Quadcopter.getQuadcopter().registerSeriousError(this.getClass().getName(), e);
 				}
 	}
 
