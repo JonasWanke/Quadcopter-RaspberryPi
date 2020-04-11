@@ -91,7 +91,7 @@ public class ArduinoCommunicationManager extends CommunicationManager
 		}
 	}
 	@Override
-	public void close()
+	public void end()
 	{
 		arduinoInputListener.end();
 		arduinoOutputManager.end();

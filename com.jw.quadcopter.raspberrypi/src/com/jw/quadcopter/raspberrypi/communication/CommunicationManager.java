@@ -22,7 +22,7 @@ public abstract class CommunicationManager
 	}
 
 	public abstract void init();
-	public abstract void close();
+	public abstract void end();
 
 	public abstract void send(byte b);
 	public abstract void send(byte[] b);
